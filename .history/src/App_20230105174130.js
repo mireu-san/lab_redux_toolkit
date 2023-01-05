@@ -24,7 +24,7 @@ function Counter() {
     <div>
       <button
         onClick={() => {
-          dispatch(up(2));
+          dispatch({ type: "up", step: 2 });
         }}
       >
         +

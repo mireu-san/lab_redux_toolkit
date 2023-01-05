@@ -3,9 +3,21 @@ import { createStore } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-import store from "./store";
-import { up } from "./counterSlice";
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: { value: 0 },
+  reducers: {
+    up: (state, action) => {
+      state.value = state.value + action.step;
+    },
+  },
+});
 
+configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+  },
+});
 // function reducer(state, action) {
 //   if (action.type === "up") {
 //     return { ...state, value: state.value + action.step };
@@ -18,13 +30,14 @@ import { up } from "./counterSlice";
 function Counter() {
   const dispatch = useDispatch();
   const count = useSelector((state) => {
-    return state.counter.value;
+    console.log(state);
+    state.value;
   });
   return (
     <div>
       <button
         onClick={() => {
-          dispatch(up(2));
+          dispatch({ type: "up", step: 2 });
         }}
       >
         +
